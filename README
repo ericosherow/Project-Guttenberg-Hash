@@ -1,0 +1,155 @@
+/*********************************************************
+ * Project 2: grep
+ * Comp 15 Fall 2018 
+ * 
+ * Author: ERIC OSHEROW 
+ * Acknowledgements: All TA's. Kevin Dustin. Jorge, Ari Brown, Kapil,  
+ *references  to  outside   sources   you   consulted: https://www.geeksforgeeks.org/substring-in-cpp/, https://www.geeksforgeeks.org/hashing-set-1-introduction/
+ *********************************************************/
+
+This homework assignment contains some files that can be helpful towards implementing project 2
+
+
+FSTreeTraversal.cpp : Method for traversal of DirNode FSTree. 
+StringProcessing.cpp : Parses input string to desired (see defintion in spec) format. 
+FSTree.h		: interface of FSTree class  (used to explore file directories)
+FSTree.o		: compiled version of FSTree.cpp
+DirNode.h 		: interface of DirNode class (nodes used in FSTree)
+DirNode.o 		: compiled version of DirNode.cpp
+README 			: this file
+
+Note: the code complete only for phase1 of assignment purpose. Only a few auxiliary files are provided
+
+******PURPOSE OF PROGRAM: 
+	  ******A program that runs like Unix grep. 
+	  		******Allow management: index, search, query of large directories of info 
+	       		  *******Program will index all words in a directory & perform queries 
+	        	   
+
+The files that you provided and a short description of what each file is and its purpose
+		CORE FILES 
+					1. Main Client: gerp.cpp  
+					2. Test file: test-words.cpp  
+
+					3. Guttenberg.cpp 
+					4. Guttenberg.h  
+
+					6. HashTable.cpp
+					7. HashTable.h 
+
+					8.Word.cpp
+					9.Word.h
+
+					10. FSTree.h   
+					11. DirNode.h
+
+					12. Makefile
+					13. README           
+                    
+
+		executables: 
+					1. ****MAIN: gerp 
+					2. UNIT TEST: test-words                            
+		                                           
+
+Compliation Instructions: 
+1. To compile run: 
+	-main program: make gerp 
+		- run program with ./gerp [directory name]. 
+	-unit testing: make test-words 
+	 		-this compiles a test file for unit testing 
+	-if one desires add a new driver function and compile with make (new .cpp)
+
+Program Structure: 
+	1. Client: gerp.cpp 
+			-executes program
+	2. Container for Hash and Structs: Guttenberg.cpp 
+			-intiantiates object and runs file i/o for insertion
+	3. HashTable: HashTable.cpp
+		-Performs every and all functions relating to storage in HashTable 
+	4. Retrivable data: 
+		-stores individual Word Objects: Contains file paths and word names
+	5. Auxilary sturucture: <vector> 
+			-vectors are used to perform auxilary functions: 1. create hashchains, two. store directory of files. 3. store a words locations in vector<string> directory  
+
+Data Structure: 
+	*HashChain
+		- created with a Dynamic Array with vector chains. Each vector chain holds a Word object with holds a string and a vector of ints. Auxilary vectors are used for other data management== create a directory of file instances 
+	
+Pros and cons of program structure and data structures:
+	Pros: 
+		1. The program is extremely modular. However this modularily lead ot a major cons, slow time is due to passing large amounts of data 
+	Cons: 
+		2. Insertion speed is hindered by file prep. 
+
+
+(b) A description of each class/structs you wrote.
+
+	**1. Main Client: gerp.cpp  
+			-contains run function
+
+	  2. Test file: test-words.cpp  
+	  			--file consisting of seperate to main unit test 
+
+	**
+	  3. Guttenberg.cpp 
+	  		-implmentatoin of container to HashTable
+	  			-runs file/io and calls constructions of hashtable 
+	  4. Guttenberg.h  
+	  		-defintions of functions for Guttenberg.cpp 
+
+	**
+	  6. HashTable.cpp
+	  		- Implementation of HashChain. 
+	  			Core Functions: 
+
+	  			*void insertWord(string &inWord, int &filepos);
+	  					-Hashs and inserts words to hash table 
+
+				*int calcHash(string &key); 
+						-calculates hash 
+
+				*String processing functions 
+						-string StringProcessing(string &query); 
+						-string parseWord(string &inQuery); 
+
+				*void runQuery(string &query);
+						-allows user query 
+
+				*void constructDirectory(string &file); 
+						-constructions directory of file instances for query 
+
+	  7. HashTable.h 
+	  		-Defintion of HashChain 
+
+	  8.Word.cpp
+	  		- Implemenation of Word Class objects 
+
+	  9.Word.h
+	  		- Word defintions 
+
+	**
+		10. FSTree.h   
+		11. DirNode.h
+
+(c) What is the overall time complexity of the solution? 
+Insertions is O(1). It is however much closer to Omega(N) for unknown reasons. HashChains are being populated at 2x the rate of table insertions. After thorough mathmatical analysis, I am unsure of how this is possible. My code theorectically runs at a seemingly O(1) speed for every insertion, query. This obviously excludes file i/o
+
+(d) What is the overall space complexity of the solution?l
+-Very large 
+
+(e) A description of how each piece of your code was tested.
+
+Overview:
+-I rigoursly tested all core functoins and constructions of every class. Every function works. 
+-Size Testing. I tested all sizes incrimented by 50,000 for my HashTable Array ranging from 100,000 to 500,000. I determined 450,000 was fastest. 
+
+Unit Testing: 
+Hightling core functionality all aspects of every class works perfectly. No errors in fuction to be listed. 
+
+File Testing: 
+I tested on all core directories small/medium/large guttenberg. All work at 09s, 18, 37. 
+
+
+
+
